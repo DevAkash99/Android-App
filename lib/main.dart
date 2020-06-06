@@ -1,141 +1,89 @@
 import 'package:flutter/material.dart';
+import 'package:splashscreen/splashscreen.dart';
+import 'SignUp.dart';
+import 'SignIn.dart';
 
-void main() => runApp(App());
 
-class App extends StatelessWidget{
+void main() {
+  runApp(new MaterialApp(
+    debugShowCheckedModeBanner: false,
+    home: new MyApp(),
+  ));
+}
+
+class MyApp extends StatefulWidget {
   @override
-  Widget build(BuildContext context){
-    return MaterialApp(
-      debugShowCheckedModeBanner: false,
-      theme: ThemeData(
-          primaryColor: Color(0xFFFB415B),
-          fontFamily: "Ubuntu"
-      ),
-      home: LoginPage(),
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
+  @override
+  Widget build(BuildContext context) {
+    return SplashScreen(
+      seconds: 3,
+      backgroundColor: Colors.white,
+      image: Image.asset('./assets/splogo.jpg'),
+      loaderColor: Colors.white,
+      photoSize: 150.0,
+      navigateAfterSeconds: MainScreen(),
     );
-  }
+ }
 }
 
-class LoginPage extends StatefulWidget{
+class MainScreen extends StatelessWidget {
   @override
-  _LoginPageState createState() => _LoginPageState();
-}
-
-class _LoginPageState extends State<LoginPage>{
-
-  bool _isHidden = true;
-
-  void _toggleVisibility(){
-    setState(() {
-      _isHidden = !_isHidden;
-    });
-  }
-
-  @override
-  Widget build(BuildContext context){
+  Widget build(BuildContext context) {
     return Scaffold(
-      resizeToAvoidBottomPadding: false,
-      body: Container(
-        padding: EdgeInsets.only(top: 100.0, right: 20.0, left: 20.0, bottom: 20.0),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: <Widget>[
-            Image(
-              image: NetworkImage("https://repository-images.githubusercontent.com/31792824/fb7e5700-6ccc-11e9-83fe-f602e1e1a9f1")
-            ),
-            SizedBox(height: 40.0,),
-            Text(
-              "Sign-in",
-              style: TextStyle(
-                  fontSize: 28.0,
-                  fontWeight: FontWeight.bold,
-                  color: Theme.of(context).primaryColor
-              ),
-            ),
-            SizedBox(height: 40.0,),
-            buildTextField("Email"),
-            SizedBox(height: 20.0,),
-            buildTextField("Password"),
-            SizedBox(height: 20.0,),
-            Container(
+      appBar: AppBar(
+        title: Text('Welcome'),
+        backgroundColor : Colors.red,
+      ),
+      body: Padding(
+        padding: EdgeInsets.all(10),
+        child: ListView(children: <Widget>[
+          Container(
+              height: 50,
+              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              child: RaisedButton(
+                textColor: Colors.white,
+                color: Colors.lightBlue,
+                child: Text('Login'),
+                onPressed: () {
+                  navigateToSignInPage(context);
+                },
+              )),
+          Container(
               child: Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: <Widget>[
-                  Text(
-                    "Forgotten Password?",
-                    style: TextStyle(
-                      color: Theme.of(context).primaryColor,
-                    ),
-                  ),
-                ],
+            children: <Widget>[
+              Text(
+                'Does not have account?',
+                style: TextStyle(fontSize: 10),
               ),
-            ),
-            SizedBox(height: 50.0),
-            buildButtonContainer(),
-            SizedBox(height: 10.0,),
-            Container(
-              child: Center(
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.center,
-                  children: <Widget>[
-                    Text("Don't have an account?"),
-                    SizedBox(width: 10.0,),
-                    Text("SIGN UP", style: TextStyle(color: Theme.of(context).primaryColor,))
-                  ],
+              FlatButton(
+                textColor: Colors.blue,
+                child: Text(
+                  'Sign UP',
+                  style: TextStyle(fontSize: 12),
                 ),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget buildTextField(String hintText){
-    return TextField(
-      decoration: InputDecoration(
-        hintText: hintText,
-        hintStyle: TextStyle(
-          color: Colors.grey,
-          fontSize: 16.0,
-        ),
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(20.0),
-        ),
-        prefixIcon: hintText == "Email" ? Icon(Icons.email) : Icon(Icons.lock),
-        suffixIcon: hintText == "Password" ? IconButton(
-          onPressed: _toggleVisibility,
-          icon: _isHidden ? Icon(Icons.visibility_off) : Icon(Icons.visibility),
-        ) : null,
-      ),
-      obscureText: hintText == "Password" ? _isHidden : false,
-    );
-  }
-
-  Widget buildButtonContainer(){
-    return Container(
-      height: 56.0,
-      width: MediaQuery.of(context).size.width,
-      decoration: BoxDecoration(
-        borderRadius: BorderRadius.circular(23.0),
-        gradient: LinearGradient(
-            colors: [
-              Color(0xFFFB415B),
-              Color(0xFFEE5623)
+                onPressed: () {
+                  navigateToSignUpPage(context);
+                },
+              )
             ],
-            begin: Alignment.centerRight,
-            end: Alignment.centerLeft
-        ),
+            mainAxisAlignment: MainAxisAlignment.center,
+          ))
+        ]),
       ),
-      child: Center(
-        child: Text(
-          "LOGIN",
-          style: TextStyle(
-            color: Colors.white,
-            fontSize: 18.0,
-          ),
-        ),
-      ),
+
     );
   }
+}
+
+Future navigateToSignInPage(context) async {
+  Navigator.push(context, MaterialPageRoute(builder: (context) => LoginPage()));
+}
+
+Future navigateToSignUpPage(context) async {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => SignUpPage()));
 }
