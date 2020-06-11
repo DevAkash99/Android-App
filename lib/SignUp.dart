@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:techtalk/SignIn.dart';
-
+import 'package:techtalk/home.dart';
 
 class SignUpPage extends StatelessWidget {
   @override
@@ -84,7 +84,7 @@ class SignUpPage extends StatelessWidget {
                   height: 30,
                   child: RaisedButton(
                     onPressed: () {
-                      Navigator.pushNamed(context, 'Home');
+                      navigateToHomePage(context);
                     },
                     color: Color(0xFF00a79B),
                     child: Text(
@@ -104,4 +104,8 @@ class SignUpPage extends StatelessWidget {
       ),
     );
   }
+}
+Future navigateToHomePage(context) async {
+  Navigator.push(
+      context, MaterialPageRoute(builder: (context) => Home()));
 }

@@ -39,11 +39,11 @@ class MainScreen extends StatelessWidget {
         backgroundColor : Colors.red,
       ),
       body: Padding(
-        padding: EdgeInsets.all(10),
+        padding: EdgeInsets.only(left:10,top:800,bottom:40,right:30),
         child: ListView(children: <Widget>[
           Container(
               height: 50,
-              padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+              padding: EdgeInsets.only(left:30,top:0,bottom:2,right:0),
               child: RaisedButton(
                 textColor: Colors.white,
                 color: Colors.lightBlue,
@@ -57,13 +57,13 @@ class MainScreen extends StatelessWidget {
             children: <Widget>[
               Text(
                 'Does not have account?',
-                style: TextStyle(fontSize: 10),
+                style: TextStyle(fontSize: 22),
               ),
               FlatButton(
                 textColor: Colors.blue,
                 child: Text(
                   'Sign UP',
-                  style: TextStyle(fontSize: 12),
+                  style: TextStyle(fontSize: 28),
                 ),
                 onPressed: () {
                   navigateToSignUpPage(context);
