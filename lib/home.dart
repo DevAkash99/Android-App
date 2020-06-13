@@ -1,29 +1,30 @@
-
 import 'package:circular_profile_avatar/circular_profile_avatar.dart';
 import 'package:flutter/material.dart';
-import 'package:video_player/video_player.dart';
 
-class Home extends StatelessWidget {
- Widget build(BuildContext context) {
-  return Scaffold(
-    body: Column(
-      
-      children: <Widget>[
-        // Top section
-       topSection,
+class Home extends StatefulWidget{
 
-        // Middle expanded
-        middleSection,
-      
-        
+  createState(){
+    return HomeStateKeeper();
+  }
+}
 
-        // Bottom Section
-      bottomSection,
-      ],
+class HomeStateKeeper extends State<Home>{
+Widget build(context){
+  return MaterialApp(
+    home: Scaffold(
+      body: Column(
+        children: <Widget>[
+          topSection,
+          middleSection,
+          bottomSection,
+        ],
+      ),
     ),
   );
 }
 }
+
+
 Widget get topSection => Row(
        mainAxisAlignment: MainAxisAlignment.center,
     children: <Widget>[
@@ -62,6 +63,7 @@ Widget get topSection => Row(
     ]
   );
 
+  
 Widget get middleSection => Expanded(
   child: Row(
     
@@ -152,4 +154,3 @@ Widget get middleSection => Expanded(
       ),
     ]
   );
-
